@@ -16,6 +16,8 @@ Accidental entry into crime. Dirty vs clean money. Trust and betrayal. A persist
 
 Includes: character setup, dirty/clean money, trust network, Kessler evidence + journal, bail, jail, vehicles, exit score, quiet endings, caught ending, and a playable **real-time chase** (drive, break line of sight, or get boxed in).
 
+It opens on the case-file landing from the original build — pick The Favor, The Debt, or The Witness to seed the run — then hands off to the systems and chase.
+
 This is the **consequence brain**. Full real-time 3D/multiplayer is the production target, not this file alone.
 
 ---
