@@ -14,7 +14,6 @@
       --accent: #c45c26;
       --danger: #b33a3a;
       --ok: #3a8f6a;
-      --warn: #c9a227;
     }
     * { box-sizing: border-box; }
     body {
@@ -25,92 +24,105 @@
       line-height: 1.45;
       min-height: 100vh;
     }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 20px; }
-    h1 { font-size: 1.6rem; margin: 0 0 4px; letter-spacing: 0.04em; }
-    .tagline { color: var(--muted); font-size: 0.95rem; margin-bottom: 20px; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 16px; }
+    h1 { font-size: 1.5rem; margin: 0 0 2px; letter-spacing: 0.05em; }
+    .tagline { color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
     .panel {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 14px 16px;
+      padding: 12px 14px;
     }
-    .panel h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 10px; }
-    .stat { display: flex; justify-content: space-between; margin: 6px 0; font-size: 0.95rem; }
-    .stat span:last-child { font-variant-numeric: tabular-nums; }
-    .bar {
-      height: 6px; background: #222; border-radius: 3px; overflow: hidden; margin-top: 4px;
+    .panel h2 {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted); margin: 0 0 8px;
     }
-    .bar > i { display: block; height: 100%; background: var(--accent); }
-    .bar.danger > i { background: var(--danger); }
-    .bar.ok > i { background: var(--ok); }
+    .stat { display: flex; justify-content: space-between; margin: 5px 0; font-size: 0.9rem; }
+    .bar { height: 6px; background: #222; border-radius: 3px; overflow: hidden; margin-top: 4px; }
+    .bar > i { display: block; height: 100%; background: var(--danger); }
     .char {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem;
+      padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem;
     }
     .char:last-child { border-bottom: none; }
-    .status { font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; }
+    .status { font-size: 0.7rem; padding: 2px 7px; border-radius: 999px; text-transform: uppercase; }
     .status.useful { background: #1e3d30; color: #7dcea0; }
     .status.cautious { background: #3d351e; color: #e0c35a; }
     .status.unreliable { background: #3d2a1e; color: #e09a5a; }
     .status.dangerous { background: #3d1e1e; color: #e07a7a; }
-    #story {
-      min-height: 160px; white-space: pre-wrap; margin-bottom: 14px;
-    }
-    .choices { display: flex; flex-direction: column; gap: 8px; }
+    #story { min-height: 140px; white-space: pre-wrap; margin-bottom: 12px; }
+    .choices { display: flex; flex-direction: column; gap: 7px; }
     button {
       background: #1c1c22; color: var(--text); border: 1px solid var(--border);
-      padding: 12px 14px; border-radius: 8px; text-align: left; cursor: pointer;
-      font-size: 0.95rem;
+      padding: 11px 13px; border-radius: 8px; text-align: left; cursor: pointer; font-size: 0.9rem;
     }
     button:hover { border-color: var(--accent); background: #222228; }
     button:disabled { opacity: 0.4; cursor: not-allowed; }
     .modal {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.75);
-      display: none; align-items: center; justify-content: center; z-index: 20; padding: 20px;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.78);
+      display: none; align-items: center; justify-content: center; z-index: 30; padding: 16px;
     }
     .modal.open { display: flex; }
     .modal-card {
       background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
-      padding: 22px; max-width: 420px; width: 100%;
+      padding: 20px; max-width: 440px; width: 100%; max-height: 90vh; overflow-y: auto;
     }
     .modal-card h3 { margin-top: 0; }
-    .log {
-      max-height: 180px; overflow-y: auto; font-size: 0.85rem; color: var(--muted);
-    }
-    .log div { padding: 4px 0; border-bottom: 1px solid #222; }
-    .tabs { display: flex; gap: 8px; margin-bottom: 10px; }
-    .tabs button { padding: 6px 12px; font-size: 0.8rem; }
+    .log { max-height: 220px; overflow-y: auto; font-size: 0.82rem; color: var(--muted); }
+    .log div { padding: 5px 0; border-bottom: 1px solid #222; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .tabs button { padding: 5px 10px; font-size: 0.75rem; }
     .tabs button.active { border-color: var(--accent); color: var(--accent); }
+    input, select {
+      width: 100%; padding: 10px; margin: 6px 0 12px; border-radius: 6px;
+      border: 1px solid var(--border); background: #121216; color: var(--text);
+    }
+    .row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .row input { width: auto; flex: 1; margin: 0; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>THE FLIP</h1>
-    <p class="tagline">Prototype — core systems. Money, trust, evidence, bail. Consequences compound.</p>
+    <p class="tagline">Prototype v2 — character, money, trust, evidence, vehicles, bail, journal.</p>
 
-    <div class="grid">
+    <div class="grid" id="hud" style="display:none">
+      <div class="panel">
+        <h2>You</h2>
+        <div class="stat"><span>Name</span><span id="playerName">—</span></div>
+        <div class="stat"><span>Day</span><span id="day">1</span></div>
+        <div class="stat"><span>Lifestyle</span><span id="lifestyle">—</span></div>
+      </div>
       <div class="panel">
         <h2>Money</h2>
         <div class="stat"><span>Dirty Cash</span><span id="dirty">$0</span></div>
         <div class="stat"><span>Clean Money</span><span id="clean">$0</span></div>
       </div>
       <div class="panel">
-        <h2>Case Intensity</h2>
-        <div class="stat"><span>Detective Kessler</span><span id="intensity">0%</span></div>
-        <div class="bar danger"><i id="intensityBar" style="width:0%"></i></div>
-        <div class="stat" style="margin-top:10px"><span>Freedom</span><span id="freedom">Free</span></div>
+        <h2>Case / Freedom</h2>
+        <div class="stat"><span>Kessler Intensity</span><span id="intensity">0%</span></div>
+        <div class="bar"><i id="intensityBar" style="width:0%"></i></div>
+        <div class="stat" style="margin-top:8px"><span>Status</span><span id="freedom">Free</span></div>
       </div>
     </div>
 
-    <div class="panel" style="margin-top:14px">
+    <div class="panel" id="vehiclePanel" style="margin-top:10px;display:none">
+      <h2>Vehicle</h2>
+      <div class="stat"><span>Current</span><span id="vehName">None</span></div>
+      <div class="stat"><span>Class</span><span id="vehClass">—</span></div>
+      <div class="stat"><span>Status</span><span id="vehStatus">—</span></div>
+      <div class="stat"><span>Vehicle Heat</span><span id="vehHeat">0</span></div>
+    </div>
+
+    <div class="panel" id="trustPanel" style="margin-top:10px;display:none">
       <h2>Trust Network</h2>
       <div id="chars"></div>
     </div>
 
-    <div class="panel" style="margin-top:14px">
-      <div class="tabs">
+    <div class="panel" style="margin-top:10px">
+      <div class="tabs" id="mainTabs" style="display:none">
         <button type="button" class="active" data-tab="story">Story</button>
         <button type="button" data-tab="journal">Journal / Evidence</button>
       </div>
@@ -119,20 +131,23 @@
         <div class="choices" id="choices"></div>
       </div>
       <div id="journalPanel" style="display:none">
+        <div class="row">
+          <input type="number" id="filterDay" placeholder="Filter by day (empty = all)" min="1" />
+          <button type="button" id="filterBtn" style="width:auto">Filter</button>
+        </div>
         <div class="log" id="journal"></div>
       </div>
     </div>
   </div>
 
-  <!-- Bail Modal -->
   <div class="modal" id="bailModal">
     <div class="modal-card">
       <h3>Bail Bond</h3>
-      <p id="bailText">You have been arrested. Post bail to be released immediately, or refuse and go to jail.</p>
+      <p>You have been arrested. Post bail to walk free immediately, or refuse and go to jail.</p>
       <p><strong>Bail amount:</strong> $<span id="bailAmount">0</span></p>
-      <div class="choices" style="margin-top:14px">
+      <div class="choices" style="margin-top:12px">
         <button type="button" id="payClean">Pay with Clean Money</button>
-        <button type="button" id="payDirty">Pay with Dirty Money (risky)</button>
+        <button type="button" id="payDirty">Pay with Dirty Money (adds evidence)</button>
         <button type="button" id="refuseBail">Refuse — Go to Jail</button>
       </div>
     </div>
@@ -148,20 +163,32 @@
       { id: "eve", name: "Evelyn Shaw", role: "Money Mover" }
     ];
 
-    const state = {
-      dirty: 0,
-      clean: 800,
-      intensity: 0,
-      freedom: "free", // free | jail
-      day: 1,
-      trust: { sofia: 75, cole: 60, dom: 50, lena: 55, ray: 50, eve: 45 },
-      evidence: [],
-      phase: "start"
+    const WEAPONS = {
+      none: { name: "Unarmed", damage: 0, accuracy: 0, noise: 0 },
+      pistol: { name: "Pistol", damage: 55, accuracy: 70, noise: 70 },
+      smg: { name: "SMG", damage: 65, accuracy: 50, noise: 90 }
     };
 
-    function money(n) {
-      return n.toLocaleString("en-US");
-    }
+    const VEHICLE_CLASSES = {
+      none: { label: "None", heatMod: 0 },
+      low: { label: "Low-Profile", heatMod: -1 },
+      standard: { label: "Standard", heatMod: 0 },
+      performance: { label: "Performance", heatMod: 2 },
+      heavy: { label: "Heavy / Utility", heatMod: 1 }
+    };
+
+    const state = {
+      name: "", lifestyle: "", personality: "",
+      dirty: 0, clean: 900,
+      intensity: 0, freedom: "free", day: 1,
+      trust: { sofia: 72, cole: 58, dom: 48, lena: 52, ray: 48, eve: 44 },
+      evidence: [],
+      vehicle: { name: "None", classId: "none", status: "—", heat: 0, owned: false },
+      weapon: "none",
+      arrests: 0
+    };
+
+    function money(n) { return Number(n).toLocaleString("en-US"); }
 
     function trustStatus(v) {
       if (v >= 70) return "useful";
@@ -179,41 +206,62 @@
     function changeTrust(id, delta, reason) {
       const prev = state.trust[id];
       state.trust[id] = Math.max(0, Math.min(100, prev + delta));
-      if (prev > 0 && state.trust[id] === 0) {
-        addEvidence(`Statement / break from ${CHARACTERS.find(c => c.id === id).name}: ${reason}`, 12);
+      if (prev > 0 && state.trust[id] === 0 && reason) {
+        const who = CHARACTERS.find(c => c.id === id).name;
+        addEvidence(`${who} broke and talked: "${reason}"`, 14);
+        setTimeout(() => {
+          // surface in story if on main loop later
+        }, 0);
       }
       render();
     }
 
+    function renderJournal(filterDay) {
+      const journal = document.getElementById("journal");
+      let list = state.evidence;
+      if (filterDay) list = list.filter(e => e.day === Number(filterDay));
+      if (!list.length) {
+        journal.innerHTML = "<div>No evidence entries for this view.</div>";
+        return;
+      }
+      journal.innerHTML = list.map(e =>
+        `<div><strong>Day ${e.day}</strong> · +${e.weight}% — ${e.text}</div>`
+      ).join("");
+    }
+
     function render() {
+      document.getElementById("playerName").textContent = state.name || "—";
+      document.getElementById("day").textContent = state.day;
+      document.getElementById("lifestyle").textContent = state.lifestyle || "—";
       document.getElementById("dirty").textContent = "$" + money(state.dirty);
       document.getElementById("clean").textContent = "$" + money(state.clean);
       document.getElementById("intensity").textContent = state.intensity + "%";
       document.getElementById("intensityBar").style.width = state.intensity + "%";
       document.getElementById("freedom").textContent =
-        state.freedom === "free" ? "Free" : "In Jail";
+        state.freedom === "free" ? "Free" : state.freedom === "jail" ? "In Jail" : state.freedom;
 
-      const chars = document.getElementById("chars");
-      chars.innerHTML = CHARACTERS.map(c => {
+      document.getElementById("vehName").textContent = state.vehicle.name;
+      document.getElementById("vehClass").textContent = VEHICLE_CLASSES[state.vehicle.classId].label;
+      document.getElementById("vehStatus").textContent = state.vehicle.status;
+      document.getElementById("vehHeat").textContent = state.vehicle.heat;
+
+      document.getElementById("chars").innerHTML = CHARACTERS.map(c => {
         const t = state.trust[c.id];
         const st = trustStatus(t);
         return `<div class="char">
-          <div><strong>${c.name}</strong><br><span style="color:var(--muted);font-size:0.8rem">${c.role}</span></div>
-          <div style="text-align:right">
-            <div>${t}</div>
-            <span class="status ${st}">${st}</span>
-          </div>
+          <div><strong>${c.name}</strong><br><span style="color:var(--muted);font-size:0.75rem">${c.role}</span></div>
+          <div style="text-align:right"><div>${t}</div><span class="status ${st}">${st}</span></div>
         </div>`;
       }).join("");
 
-      const journal = document.getElementById("journal");
-      if (state.evidence.length === 0) {
-        journal.innerHTML = "<div>No evidence logged yet.</div>";
-      } else {
-        journal.innerHTML = state.evidence.map(e =>
-          `<div><strong>Day ${e.day}</strong> · +${e.weight}% — ${e.text}</div>`
-        ).join("");
-      }
+      renderJournal(document.getElementById("filterDay").value);
+    }
+
+    function showHUD(on) {
+      document.getElementById("hud").style.display = on ? "grid" : "none";
+      document.getElementById("vehiclePanel").style.display = on ? "block" : "none";
+      document.getElementById("trustPanel").style.display = on ? "block" : "none";
+      document.getElementById("mainTabs").style.display = on ? "flex" : "none";
     }
 
     function setStory(text, choices) {
@@ -231,6 +279,7 @@
     }
 
     function openBail(amount) {
+      state.arrests += 1;
       document.getElementById("bailAmount").textContent = money(amount);
       document.getElementById("bailModal").classList.add("open");
       const payClean = document.getElementById("payClean");
@@ -249,104 +298,217 @@
         state.dirty -= amount;
         state.freedom = "free";
         document.getElementById("bailModal").classList.remove("open");
-        addEvidence("Bail posted with unexplained cash — flagged", 8);
+        addEvidence("Bail posted with unexplained cash — financial flag", 9);
         afterBail();
       };
       document.getElementById("refuseBail").onclick = () => {
         state.freedom = "jail";
         document.getElementById("bailModal").classList.remove("open");
-        setStory(
-          "You refuse to post bail.\n\nYou are processed and moved into holding. Days will pass. Trust will decay. The case file keeps growing without you.",
-          [{ label: "Continue (prototype ends jail path here)", action: () => {
-            setStory("Jail path placeholder. In the full design this leads to prison systems, trust decay, and possible escape planning.", []);
-          }}]
-        );
-        render();
+        goToJail();
       };
     }
 
     function afterBail() {
       setStory(
-        "You walk out. Released for now.\n\nThe street feels the same. The case file does not. Kessler still has everything that put you in cuffs.",
+        "Released. The street has not changed.\n\nKessler’s file has.",
         [
-          { label: "Lie low for a few days", action: () => {
-            state.day += 3;
-            state.intensity = Math.max(0, state.intensity - 3);
-            setStory("You stay quiet. Intensity eases slightly. People still remember.", mainChoices());
-            render();
-          }},
-          { label: "Call Cole for work", action: jobWithCole }
+          { label: "Lie low (3 days)", action: lieLow },
+          { label: "Back to the network", action: () => setStory("You re-enter the city’s rhythm.", mainChoices()) }
         ]
       );
       render();
     }
 
+    function goToJail() {
+      state.day += 5;
+      // trust decays while inside
+      Object.keys(state.trust).forEach(id => {
+        if (state.trust[id] > 0) state.trust[id] = Math.max(0, state.trust[id] - 8);
+      });
+      addEvidence("Subject held; investigation continues without obstruction", 5);
+      setStory(
+        "You are processed and held.\n\nDays blur. Calls go unanswered. Outside, people recalculate what you are worth to them.\n\nTrust across your network has dropped.",
+        [
+          { label: "Serve time and get released (prototype)", action: () => {
+            state.freedom = "free";
+            state.day += 10;
+            addEvidence("Prior detention on record", 4);
+            setStory("You are released later. The file is thicker. Some numbers on the trust board look worse.", mainChoices());
+            render();
+          }},
+          { label: "Sit with the cost", action: () => {
+            setStory("In the full design this path opens prison politics, decay, and eventual escape planning. Here, the weight is the point.", [
+              { label: "Continue after release", action: () => {
+                state.freedom = "free";
+                setStory("Back on the street. Quieter. More watched.", mainChoices());
+                render();
+              }}
+            ]);
+          }}
+        ]
+      );
+      render();
+    }
+
+    function lieLow() {
+      state.day += 3;
+      state.intensity = Math.max(0, state.intensity - 4);
+      if (state.vehicle.heat > 0) state.vehicle.heat = Math.max(0, state.vehicle.heat - 1);
+      setStory("You stay quiet. Intensity eases a little. The file does not disappear.", mainChoices());
+      render();
+    }
+
     function mainChoices() {
       return [
-        { label: "Take a small street job with Cole", action: jobWithCole },
-        { label: "Try to move some dirty money through Lena’s den", action: useDen },
-        { label: "Spend time with Sofia (honest or not)", action: sofiaScene },
-        { label: "Check in with Dom (lawyer)", action: talkDom }
+        { label: "Street job with Cole", action: jobWithCole },
+        { label: "Riskier job (weapon choice matters)", action: riskyJob },
+        { label: "Move dirty cash via Lena’s den", action: useDen },
+        { label: "Use Eve to move money", action: useEve },
+        { label: "Talk to Ray about the business front", action: talkRay },
+        { label: "Sofia — home / truth", action: sofiaScene },
+        { label: "Call Dom (lawyer)", action: talkDom },
+        { label: "Vehicle options", action: vehicleMenu },
+        { label: "Lie low (3 days)", action: lieLow }
       ];
     }
 
     function jobWithCole() {
       if (state.trust.cole < 20) {
-        setStory("Cole doesn’t answer. When he finally texts back it’s one line: Don’t call me.", mainChoices());
+        setStory("Cole does not answer. Later: a single message — leave me out of it.", mainChoices());
         return;
       }
       state.day += 1;
-      state.dirty += 2500;
-      changeTrust("cole", -4, "Felt used on the last job");
-      addEvidence("Associate activity pattern — possible street-level offense", 5);
+      state.dirty += 2200;
+      changeTrust("cole", -3, "Kept pulling me into heat without enough cut");
+      let w = 4 + (state.vehicle.heat > 2 ? 2 : 0);
+      addEvidence("Street-level associate pattern; possible offense", w);
+      setStory("Quick, ugly work. Dirty cash in your hands. Cole takes his cut and looks past you.", mainChoices());
+      maybeArrest();
+    }
+
+    function riskyJob() {
+      if (state.trust.cole < 25) {
+        setStory("Cole will not put you on anything loud right now.", mainChoices());
+        return;
+      }
       setStory(
-        "The job is messy but quick. You walk away with dirty cash.\n\nCole is quieter than usual. He took a cut and didn’t look you in the eye.",
-        mainChoices()
+        "Cole has something louder. He asks what you are carrying.\n\nWeapon noise feeds Kessler’s file.",
+        [
+          { label: "Go unarmed (lower noise, harder)", action: () => resolveRisky("none") },
+          { label: "Take a pistol", action: () => resolveRisky("pistol") },
+          { label: "Take an SMG (loud)", action: () => resolveRisky("smg") },
+          { label: "Back out", action: () => setStory("You walk away from this one.", mainChoices()) }
+        ]
       );
+    }
+
+    function resolveRisky(weaponId) {
+      state.weapon = weaponId;
+      const w = WEAPONS[weaponId];
+      state.day += 1;
+      const success = Math.random() > 0.25;
+      if (success) {
+        const pay = 4000 + w.damage * 20;
+        state.dirty += pay;
+        const evidenceW = 6 + Math.floor(w.noise / 15);
+        addEvidence(`Higher-risk incident; noise profile consistent with ${w.name}`, evidenceW);
+        changeTrust("cole", -5, "That job was too hot; I almost didn’t walk");
+        setStory(`It works. Barely.\n\nYou used: ${w.name}.\nDamage potential mattered. Noise left a trail.\nDirty cash: +$${money(pay)}`, mainChoices());
+      } else {
+        addEvidence(`Botched incident; ${w.name} indicated in reports`, 8 + Math.floor(w.noise / 20));
+        changeTrust("cole", -8, "You froze / the job collapsed and heat landed on me");
+        setStory(`It goes wrong.\n\n${w.name} did not save the situation. You get out with less than nothing but a thicker file.`, mainChoices());
+      }
       maybeArrest();
     }
 
     function useDen() {
       if (state.trust.lena < 20) {
-        setStory("Lena’s people turn you away at the door. You’re not welcome.", mainChoices());
+        setStory("The den is closed to you. Lena’s decision.", mainChoices());
         return;
       }
       if (state.dirty < 1000) {
-        setStory("You don’t have enough dirty cash on you to make the den worth it.", mainChoices());
+        setStory("Not enough dirty cash to make the den worth the risk.", mainChoices());
         return;
       }
-      const moved = Math.min(state.dirty, 4000);
-      const loss = Math.floor(moved * 0.3);
+      const moved = Math.min(state.dirty, 5000);
+      const loss = Math.floor(moved * 0.28);
       state.dirty -= moved;
-      state.clean += (moved - loss);
+      state.clean += moved - loss;
       state.day += 1;
-      changeTrust("lena", -3, "Too much volume, too fast");
-      addEvidence("Cash pattern consistent with underground gaming activity", 6);
-      setStory(
-        `You push $${money(moved)} through the den.\nYou walk out with $${money(moved - loss)} that looks cleaner — and a bigger footprint.`,
-        mainChoices()
-      );
+      changeTrust("lena", -4, "Volume and frequency made the den a target");
+      addEvidence("Cash flow pattern linked to underground gaming", 6);
+      setStory(`Moved $${money(moved)} through the den.\nRecovered ~$${money(moved - loss)} cleaner. Cost and footprint both real.`, mainChoices());
       maybeArrest();
     }
 
-    function sofiaScene() {
+    function useEve() {
+      if (state.trust.eve < 20) {
+        setStory("Eve has gone dark. That silence is its own kind of threat.", mainChoices());
+        return;
+      }
+      if (state.dirty < 1500) {
+        setStory("Eve does not move small change. Come back with more dirty cash.", mainChoices());
+        return;
+      }
+      const moved = Math.min(state.dirty, 6000);
+      const loss = Math.floor(moved * 0.35);
+      state.dirty -= moved;
+      state.clean += moved - loss;
+      state.day += 1;
+      changeTrust("eve", -3, "Routes getting watched; player was careless");
+      addEvidence("Third-party cash movement signature", 7);
+      setStory(`Eve moves $${money(moved)}.\nYou get $${money(moved - loss)} back looking cleaner. She does not smile.`, mainChoices());
+      maybeArrest();
+    }
+
+    function talkRay() {
+      if (state.trust.ray < 20) {
+        setStory("Ray will not take your calls about the business.", mainChoices());
+        return;
+      }
       setStory(
-        "Sofia is at the table. She doesn’t ask where the money comes from. She just watches you.\n\nYou can feel the distance.",
+        "Ray talks about invoices, hours, and how a front only works if it looks bored.\n\nSlow cleaning. Real records. Real risk if audited.",
         [
-          { label: "Tell her a version of the truth", action: () => {
-            changeTrust("sofia", -8, "Admitted involvement; she is afraid and angry");
-            addEvidence("Domestic statement — timeline of absences and stress", 7);
-            setStory("You tell her enough. She doesn’t scream. She just says she needs time. Trust drops hard.", mainChoices());
+          { label: "Park $2,000 dirty into the front (slow clean)", action: () => {
+            if (state.dirty < 2000) {
+              setStory("Not enough dirty cash.", mainChoices());
+              return;
+            }
+            state.dirty -= 2000;
+            state.clean += 1500;
+            state.day += 2;
+            changeTrust("ray", -2, "Worried the numbers will not hold");
+            addEvidence("Business revenue anomalies under review", 5);
+            setStory("Some of it comes back looking legitimate. Not all. Never all.", mainChoices());
+            maybeArrest();
           }},
-          { label: "Lie and say everything is fine", action: () => {
-            changeTrust("sofia", -5, "Caught in another lie");
-            setStory("You lie. She nods like she expected it. The silence afterward is worse than an argument.", mainChoices());
+          { label: "Leave the front alone for now", action: () => setStory("Ray nods. Smart, maybe.", mainChoices()) }
+        ]
+      );
+    }
+
+    function sofiaScene() {
+      if (state.trust.sofia <= 0) {
+        setStory("Sofia is gone from your daily life. What she already said cannot be unsaid. The file still has her words.", mainChoices());
+        return;
+      }
+      setStory(
+        "Home. Sofia does not ask about the day. She already knows the shape of the silence.",
+        [
+          { label: "Tell a real piece of the truth", action: () => {
+            changeTrust("sofia", -10, "He admitted the crime life; I cannot live inside that lie or that danger");
+            if (state.trust.sofia > 0) addEvidence("Partner statement — absences, stress, unexplained money", 6);
+            setStory("You tell her enough. Something in her face closes. Trust takes the hit.", mainChoices());
           }},
-          { label: "Stay quiet and leave money on the table", action: () => {
-            if (state.clean >= 500) state.clean -= 500;
-            else if (state.dirty >= 500) state.dirty -= 500;
-            changeTrust("sofia", +2, null);
-            setStory("You leave cash and don’t explain. She doesn’t say thank you.", mainChoices());
+          { label: "Lie again", action: () => {
+            changeTrust("sofia", -6, "Another lie; I stopped believing the excuses");
+            setStory("The lie lands soft and dead. She looks tired more than angry.", mainChoices());
+          }},
+          { label: "Leave clean money without explanation", action: () => {
+            if (state.clean >= 400) state.clean -= 400;
+            changeTrust("sofia", 3, null);
+            setStory("Cash on the counter. No speech. She does not stop you from leaving.", mainChoices());
             render();
           }}
         ]
@@ -355,84 +517,160 @@
 
     function talkDom() {
       if (state.trust.dom < 20) {
-        setStory("Dom’s office sends a short email: he is no longer available to represent you.", mainChoices());
+        setStory("Dom’s firm has declined further representation.", mainChoices());
         return;
       }
       setStory(
-        "Dom listens with the expression of a man already calculating fees.\n\n“You’re visible,” he says. “Visible is expensive.”",
+        `Dom: "Intensity sits near ${state.intensity}%. Arrests on record: ${state.arrests}. Visible people pay more."`,
         [
-          { label: "Pay him a retainer ($1,200 clean)", action: () => {
-            if (state.clean < 1200) {
-              setStory("You don’t have enough clean money for the retainer he wants.", mainChoices());
+          { label: "Pay retainer $1,500 clean", action: () => {
+            if (state.clean < 1500) {
+              setStory("Not enough clean money.", mainChoices());
               return;
             }
-            state.clean -= 1200;
-            changeTrust("dom", +6, null);
-            state.intensity = Math.max(0, state.intensity - 4);
-            setStory("Dom takes the money. He says he’ll make some calls. Intensity eases a little.", mainChoices());
+            state.clean -= 1500;
+            changeTrust("dom", 5, null);
+            state.intensity = Math.max(0, state.intensity - 5);
+            setStory("Retainer taken. A few calls. Intensity eases slightly — not erased.", mainChoices());
             render();
           }},
-          { label: "Ask what Kessler has", action: () => {
-            setStory(
-              `Dom skims a note.\n\n“Case intensity is roughly ${state.intensity}%. Enough pieces to be annoying. Not enough for the ending Kessler wants — yet.”`,
-              mainChoices()
-            );
+          { label: "Ask about the file", action: () => {
+            const top = state.evidence.slice(0, 3).map(e => `• Day ${e.day}: ${e.text}`).join("\n") || "• (thin so far)";
+            setStory(`Dom sketches the top of Kessler’s pile:\n${top}`, mainChoices());
           }},
-          { label: "Leave", action: () => setStory("You leave the office. The city feels smaller.", mainChoices()) }
+          { label: "Leave", action: () => setStory("You leave the office heavier than you entered.", mainChoices()) }
         ]
       );
     }
 
+    function vehicleMenu() {
+      setStory(
+        `Current vehicle: ${state.vehicle.name} (${VEHICLE_CLASSES[state.vehicle.classId].label})\nStatus: ${state.vehicle.status} | Heat: ${state.vehicle.heat}\n\nHigher class helps chases; it also remembers you.`,
+        [
+          { label: "Buy low-profile used car ($2,500 clean)", action: () => buyVehicle("Worn sedan", "low", 2500, true) },
+          { label: "Buy standard car ($6,000 clean)", action: () => buyVehicle("Common sedan", "standard", 6000, true) },
+          { label: "Acquire hot performance car (stolen path)", action: () => stealVehicle("Fast coupe", "performance") },
+          { label: "Dump current hot vehicle", action: dumpVehicle },
+          { label: "Back", action: () => setStory("You step away from the curb.", mainChoices()) }
+        ]
+      );
+    }
+
+    function buyVehicle(name, classId, cost, owned) {
+      if (state.clean < cost) {
+        setStory("Not enough clean money for a clean purchase.", mainChoices());
+        return;
+      }
+      state.clean -= cost;
+      state.vehicle = { name, classId, status: "Owned / registered", heat: 0, owned: true };
+      addEvidence("Vehicle registered to subject — lifestyle baseline updated", 2);
+      setStory(`You now drive a ${name}. Legal. Traceable. Quiet — until it is not.`, mainChoices());
+      render();
+    }
+
+    function stealVehicle(name, classId) {
+      state.day += 1;
+      state.vehicle = { name, classId, status: "Stolen / hot", heat: 4, owned: false };
+      addEvidence("Vehicle theft pattern; description circulating", 7);
+      changeTrust("cole", -2, "Careless noise around cars");
+      setStory(`You have a ${name}. Fast. Hot.\n\nEvery camera is a potential entry in Kessler’s timeline.`, mainChoices());
+      maybeArrest();
+    }
+
+    function dumpVehicle() {
+      if (state.vehicle.classId === "none") {
+        setStory("Nothing to dump.", mainChoices());
+        return;
+      }
+      const wasHot = state.vehicle.heat > 0 || state.vehicle.status.includes("Stolen");
+      state.vehicle = { name: "None", classId: "none", status: "—", heat: 0, owned: false };
+      if (wasHot) addEvidence("Abandoned vehicle recovered — possible link under review", 4);
+      setStory("You leave the car behind. Distance helps. It does not erase plates already logged.", mainChoices());
+      render();
+    }
+
     function maybeArrest() {
-      if (state.intensity >= 55 && state.freedom === "free" && Math.random() < 0.45) {
-        const bail = 15000 + state.intensity * 400;
-        setStory("Blue lights. Commands. Cuffs.\n\nYou are under arrest.", []);
-        setTimeout(() => openBail(bail), 600);
+      const vehBonus = state.vehicle.heat + VEHICLE_CLASSES[state.vehicle.classId].heatMod;
+      const chance = state.intensity >= 50 ? 0.35 + Math.min(0.35, state.intensity / 200) + vehBonus * 0.02 : 0.08;
+      if (state.freedom === "free" && Math.random() < chance && state.intensity >= 40) {
+        const bail = 12000 + state.intensity * 350 + state.arrests * 5000;
+        setStory("Lights. Commands. Metal on wrists.\n\nArrested.", []);
+        setTimeout(() => openBail(Math.floor(bail)), 500);
       } else {
         render();
       }
     }
 
-    // Tabs
-    document.querySelectorAll(".tabs button").forEach(btn => {
+    // tabs + filter
+    document.querySelectorAll("#mainTabs button").forEach(btn => {
       btn.addEventListener("click", () => {
-        document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll("#mainTabs button").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         const tab = btn.dataset.tab;
         document.getElementById("storyPanel").style.display = tab === "story" ? "block" : "none";
         document.getElementById("journalPanel").style.display = tab === "journal" ? "block" : "none";
       });
     });
+    document.getElementById("filterBtn").onclick = () => renderJournal(document.getElementById("filterDay").value);
 
-    // Start
-    function start() {
+    function characterCreate() {
+      showHUD(false);
+      setStory("Before the flip, there was a life.\n\nWho are you when this starts?", []);
+      const box = document.getElementById("choices");
+      box.innerHTML = `
+        <label>Name</label>
+        <input id="inName" placeholder="Your name" value="Alex" />
+        <label>Lifestyle</label>
+        <select id="inLife">
+          <option>Working class</option>
+          <option>Office / steady job</option>
+          <option>Hustling already</option>
+          <option>Quiet suburban</option>
+        </select>
+        <label>Personality lean</label>
+        <select id="inPers">
+          <option>Careful</option>
+          <option>Impulsive</option>
+          <option>Loyal</option>
+          <option>Cold</option>
+        </select>
+        <button type="button" id="startBtn">Enter the city</button>
+      `;
+      document.getElementById("startBtn").onclick = () => {
+        state.name = document.getElementById("inName").value.trim() || "Alex";
+        state.lifestyle = document.getElementById("inLife").value;
+        state.personality = document.getElementById("inPers").value;
+        if (state.personality === "Careful") state.intensity = 0;
+        if (state.personality === "Impulsive") state.trust.cole += 5;
+        if (state.personality === "Loyal") state.trust.sofia += 8;
+        if (state.personality === "Cold") state.trust.sofia -= 5;
+        showHUD(true);
+        intro();
+      };
+    }
+
+    function intro() {
       setStory(
-        "You were never supposed to be here.\n\nA favor. A ride. Being in the wrong doorway when the bag changed hands. One moment that refused to stay small.\n\nNow there is dirty money in your life, and people who know your name for the wrong reasons. Detective Kessler has already started a file. He doesn’t need to rush.\n\nThis is the flip.",
+        `${state.name}. ${state.lifestyle}. ${state.personality}.\n\nNone of that was supposed to matter this way.\n\nA favor. A doorway. A bag that should not have been your problem. Cole knew your name before you understood why.\n\nDetective Kessler has opened a line. He is patient.\n\nThis is the flip.`,
         [
-          { label: "Take the first envelope (dirty cash)", action: () => {
-            state.dirty += 1800;
-            changeTrust("cole", +5, null);
-            addEvidence("Initial association with known street actor", 4);
-            setStory(
-              "Cole slides the envelope across. It is heavier than it looks.\n\n“Don’t spend it like a tourist,” he says.",
-              mainChoices()
-            );
+          { label: "Take the first envelope", action: () => {
+            state.dirty += 2000;
+            changeTrust("cole", 6, null);
+            addEvidence("Initial contact with known street actor", 4);
+            setStory("The envelope is thicker than pride.\n\nCole: \"Don’t decorate your life with it.\"", mainChoices());
             render();
           }},
-          { label: "Try to walk away clean", action: () => {
-            changeTrust("cole", -15, "Tried to walk; considered unreliable");
-            addEvidence("Subject attempted to disengage after initial contact", 3);
-            setStory(
-              "You try to leave it alone. Cole doesn’t threaten you. He just looks disappointed — which somehow feels worse.\n\nThe city doesn’t care about your intentions. The file already has a first line.",
-              mainChoices()
-            );
+          { label: "Try to refuse", action: () => {
+            changeTrust("cole", -12, "Tried to walk after seeing the operation");
+            addEvidence("Subject present at criminal exchange; attempted disengagement", 5);
+            setStory("You refuse. Cole does not chase you.\n\nThe file still notes you were there.", mainChoices());
           }}
         ]
       );
       render();
     }
 
-    start();
+    characterCreate();
   </script>
 </body>
 </html>
