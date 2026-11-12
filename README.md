@@ -18,6 +18,8 @@ Includes: character setup, dirty/clean money, trust network, Kessler evidence + 
 
 It opens on the case-file landing from the original build — pick The Favor, The Debt, or The Witness to seed the run — then hands off to the systems and chase.
 
+**Chase engine:** [`js/chase.js`](./js/chase.js) is a standalone, event-driven `FlipChase.ChaseRun`. It owns the canvas, loop, pursuit AI and input, and never touches game state — it reports `start`, `hud`, `phase`, `shot`, `collision`, `escape`, `busted` and `end` events. `index.html` subscribes and applies evidence, vehicle heat, reward, story and bail, so the chase can be invoked from any screen with `new FlipChase.ChaseRun(...).start({vehicleClass, intensity, reward, units})`.
+
 This is the **consequence brain**. Full real-time 3D/multiplayer is the production target, not this file alone.
 
 ---
