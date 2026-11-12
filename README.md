@@ -6,6 +6,32 @@ You start as an ordinary person. One irreversible moment flips your life permane
 
 > The more successful you become at making dirty money, the harder and more dangerous it becomes to enjoy it.
 
+**Repo:** https://github.com/iamtheoracle/the-flip
+
+---
+
+## Play the Prototype (Browser)
+
+A playable core-systems prototype is included:
+
+**File:** [`index.html`](./index.html)
+
+### How to run
+1. Download or clone this repo
+2. Open `index.html` in any modern browser  
+   (or use a simple local server if you prefer)
+
+### What the prototype includes
+- Dirty vs Clean money
+- Trust scores for all six main characters
+- Evidence log + Case Intensity (Detective Kessler)
+- Bail Bond screen on arrest (pay clean / pay dirty / refuse → jail)
+- Journal tab with evidence timeline
+- Story choices that change money, trust, and evidence
+- Betrayal at 0 trust adds specific evidence
+
+This is a **systems prototype**, not the full action game (no real-time shooting, 3D driving, or video cutscenes yet).
+
 ---
 
 ## Core Fantasy
@@ -18,96 +44,69 @@ You start as an ordinary person. One irreversible moment flips your life permane
 - Vehicles, chases, occasional high-cost violence
 - Deep reactive story with lasting consequences
 
-This is not a pure power fantasy. Success feels costly. Money you cannot safely spend. Relationships that become liabilities. A detective who never fully forgets.
-
 ---
 
-## Key Systems
+## Key Systems (Design)
 
 ### Money
 - **Dirty Money** — powerful on the street, toxic in normal life
 - **Clean Money** — safe to spend, hard to create
 - Laundering is slow, expensive, and risky
-- Dashboard tracks both and shows conversion costs/risk
 
 ### Evidence & Detective Kessler
-- Specific evidence entries instead of a simple heat number
-- Case file grows from actions, witnesses, cameras, financial patterns, betrayals
-- Journal timeline shows chronological documentation
-- Searchable by date
-- Clear visibility of how close the case is to supporting strong charges
+- Specific evidence entries (not just a heat number)
+- Case Intensity meter
+- Journal timeline of documented actions
 
-### Trust Network (Six Main Characters)
-Each has a Trust Score (0–100):
+### Trust Network
+| Character | Role |
+|-----------|------|
+| Sofia Reyes | Partner / Spouse |
+| Marcus "Cole" Thompson | Street Contact |
+| Dominic "Dom" Hale | Lawyer |
+| Lena Voss | Gambling Den |
+| Raymond "Ray" Okonkwo | Business Front |
+| Evelyn "Eve" Shaw | Money Mover |
 
-| Character              | Role                      |
-|------------------------|---------------------------|
-| Sofia Reyes            | Partner / Spouse          |
-| Marcus "Cole" Thompson | Primary Street Contact    |
-| Dominic "Dom" Hale     | Criminal Lawyer           |
-| Lena Voss              | Gambling Den Operator     |
-| Raymond "Ray" Okonkwo  | Business Front Partner    |
-| Evelyn "Eve" Shaw      | Money Mover / Fence       |
-
-- High trust = useful and willing to take risks
-- Low trust = cautious, unreliable, or dangerous
-- **Trust at 0** = permanent break. They talk. Specific evidence is added to the case file. Romantic breakups carry concrete reasons.
+Trust at **0** = permanent break + specific evidence added to the case file.
 
 ### Legal Pipeline
-- Arrest → Bail Bond screen
-- Pay bail (clean or dirty money) → immediate release
-- Refuse → jail
-- Plea options, sentencing ranges, prison time
-- Life sentences open desperate prison-break planning
-- Caught or killed after escape = permanent Game Over
+Arrest → Bail screen → Pay (release) or Refuse (jail) → later prison / escape systems in full design.
 
-### Violence & Weapons
-- Shooting is possible and can feel responsive
-- Accuracy degrades heavily under stress and movement
-- Weapons track Damage, Accuracy, and Noise
-- Noise and public violence generate significant evidence
-- Lethal force remains occasional and high-cost
+### Vehicles & Action (full design)
+Ownership, hijacking, hacking, vehicle classes, chase tradeoffs, and high-cost violence are specified in the design direction and will expand beyond this prototype.
 
-### Vehicles
-- Ownership (legal), hijacking, and hacking
-- Vehicle classes: Low-Profile, Standard, Performance, Heavy/Utility
-- Higher quality helps in chases but increases long-term visibility
-- Tracking via plates, cameras, digital logs, repeated use
-- Hot vehicles should be dumped carefully
-
-### Character Creation Direction
-- Players create their own character
-- Personality and lifestyle choices affect opportunities, dialogue, and trust dynamics
-- Visual goals: faces, clothing, housing (images + eventual video support)
+### Character Creation (planned)
+Player-created characters, personalities, lifestyles, with visual goals (faces, clothing, housing, later video).
 
 ---
 
 ## Design Pillars
 
-1. **Consequence compounds** — early choices echo later
-2. **Trust is lethal** — every useful person is a potential betrayal
-3. **Money is a trap** — success creates new problems
-4. **The detective never fully resets** — the case file persists
-5. **Action exists but costs** — gunfights and chases are powerful and expensive
+1. Consequence compounds  
+2. Trust is lethal  
+3. Money is a trap  
+4. The detective never fully resets  
+5. Action exists but costs  
 
 ---
 
-## Current Status
+## Project Status
 
-This repository holds the living game design for **The Flip**.
-
-It is currently a design and systems document repository. Implementation (prototype, full game, or app-builder prompt expansion) will be added over time.
+| Layer | Status |
+|-------|--------|
+| Game design / systems | Documented |
+| Browser prototype (core loop) | **Playable** (`index.html`) |
+| Full action game + app with video | Not implemented in this repo (requires full production pipeline) |
 
 ---
 
-## Vision Statement
+## Vision
 
-*The Flip* is the story of a life that changed in one moment and the long, grinding cost of trying to live with the consequences. It mixes reactive narrative, systemic pressure (money, trust, evidence, law), and occasional high-stakes action.
-
-The quiet moments should often feel more dangerous than the gunfire.
+*The Flip* is the story of a life that changed in one moment and the long cost of living with it. Quiet moments should often feel more dangerous than gunfire.
 
 ---
 
 ## License
 
-All rights reserved for now. Design and documentation only.
+All rights reserved for now. Design + prototype documentation.
