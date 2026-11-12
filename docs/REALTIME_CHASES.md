@@ -56,6 +56,16 @@
 - Damage pattern / paint transfer
 - Weapon discharge during pursuit
 
+## Prototype status
+
+The systems prototype (`index.html`) now makes the chase real-time and operable:
+top-down city block, arrow/WASD driving, handbrake, and firing (F). It models the
+five phases, building-blocked line of sight with a delayed radio target, an escape
+timer that scales with pursuit size, box-in/pin and crash failure, stress rising
+with speed and proximity, and aftermath evidence per vehicle class (performance
+helps you leave and hurts you after). Start it from **Night run — fast job** with a
+car in the garage.
+
 ## Multiplayer notes (later)
 - Players can block, bait, or sell out routes
 - One player's chase can raise regional heat for others nearby

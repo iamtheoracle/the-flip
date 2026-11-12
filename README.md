@@ -14,7 +14,7 @@ Accidental entry into crime. Dirty vs clean money. Trust and betrayal. A persist
 
 **File:** [`index.html`](./index.html) — open in any modern browser.
 
-Includes: character setup, dirty/clean money, trust network, Kessler evidence + journal, bail, jail, vehicles, exit score, quiet endings, and caught ending.
+Includes: character setup, dirty/clean money, trust network, Kessler evidence + journal, bail, jail, vehicles, exit score, quiet endings, caught ending, and a playable **real-time chase** (drive, break line of sight, or get boxed in).
 
 This is the **consequence brain**. Full real-time 3D/multiplayer is the production target, not this file alone.
 
