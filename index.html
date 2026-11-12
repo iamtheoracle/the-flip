@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Flip — Prototype</title>
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --panel: #16161a;
+      --border: #2a2a32;
+      --text: #e8e6e3;
+      --muted: #9a9690;
+      --accent: #c45c26;
+      --danger: #b33a3a;
+      --ok: #3a8f6a;
+      --warn: #c9a227;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 20px; }
+    h1 { font-size: 1.6rem; margin: 0 0 4px; letter-spacing: 0.04em; }
+    .tagline { color: var(--muted); font-size: 0.95rem; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .panel h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 10px; }
+    .stat { display: flex; justify-content: space-between; margin: 6px 0; font-size: 0.95rem; }
+    .stat span:last-child { font-variant-numeric: tabular-nums; }
+    .bar {
+      height: 6px; background: #222; border-radius: 3px; overflow: hidden; margin-top: 4px;
+    }
+    .bar > i { display: block; height: 100%; background: var(--accent); }
+    .bar.danger > i { background: var(--danger); }
+    .bar.ok > i { background: var(--ok); }
+    .char {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem;
+    }
+    .char:last-child { border-bottom: none; }
+    .status { font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; }
+    .status.useful { background: #1e3d30; color: #7dcea0; }
+    .status.cautious { background: #3d351e; color: #e0c35a; }
+    .status.unreliable { background: #3d2a1e; color: #e09a5a; }
+    .status.dangerous { background: #3d1e1e; color: #e07a7a; }
+    #story {
+      min-height: 160px; white-space: pre-wrap; margin-bottom: 14px;
+    }
+    .choices { display: flex; flex-direction: column; gap: 8px; }
+    button {
+      background: #1c1c22; color: var(--text); border: 1px solid var(--border);
+      padding: 12px 14px; border-radius: 8px; text-align: left; cursor: pointer;
+      font-size: 0.95rem;
+    }
+    button:hover { border-color: var(--accent); background: #222228; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+      display: none; align-items: center; justify-content: center; z-index: 20; padding: 20px;
+    }
+    .modal.open { display: flex; }
+    .modal-card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+      padding: 22px; max-width: 420px; width: 100%;
+    }
+    .modal-card h3 { margin-top: 0; }
+    .log {
+      max-height: 180px; overflow-y: auto; font-size: 0.85rem; color: var(--muted);
+    }
+    .log div { padding: 4px 0; border-bottom: 1px solid #222; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 10px; }
+    .tabs button { padding: 6px 12px; font-size: 0.8rem; }
+    .tabs button.active { border-color: var(--accent); color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>THE FLIP</h1>
+    <p class="tagline">Prototype — core systems. Money, trust, evidence, bail. Consequences compound.</p>
+
+    <div class="grid">
+      <div class="panel">
+        <h2>Money</h2>
+        <div class="stat"><span>Dirty Cash</span><span id="dirty">$0</span></div>
+        <div class="stat"><span>Clean Money</span><span id="clean">$0</span></div>
+      </div>
+      <div class="panel">
+        <h2>Case Intensity</h2>
+        <div class="stat"><span>Detective Kessler</span><span id="intensity">0%</span></div>
+        <div class="bar danger"><i id="intensityBar" style="width:0%"></i></div>
+        <div class="stat" style="margin-top:10px"><span>Freedom</span><span id="freedom">Free</span></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px">
+      <h2>Trust Network</h2>
+      <div id="chars"></div>
+    </div>
+
+    <div class="panel" style="margin-top:14px">
+      <div class="tabs">
+        <button type="button" class="active" data-tab="story">Story</button>
+        <button type="button" data-tab="journal">Journal / Evidence</button>
+      </div>
+      <div id="storyPanel">
+        <div id="story"></div>
+        <div class="choices" id="choices"></div>
+      </div>
+      <div id="journalPanel" style="display:none">
+        <div class="log" id="journal"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bail Modal -->
+  <div class="modal" id="bailModal">
+    <div class="modal-card">
+      <h3>Bail Bond</h3>
+      <p id="bailText">You have been arrested. Post bail to be released immediately, or refuse and go to jail.</p>
+      <p><strong>Bail amount:</strong> $<span id="bailAmount">0</span></p>
+      <div class="choices" style="margin-top:14px">
+        <button type="button" id="payClean">Pay with Clean Money</button>
+        <button type="button" id="payDirty">Pay with Dirty Money (risky)</button>
+        <button type="button" id="refuseBail">Refuse — Go to Jail</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CHARACTERS = [
+      { id: "sofia", name: "Sofia Reyes", role: "Partner" },
+      { id: "cole", name: "Marcus Cole", role: "Street Contact" },
+      { id: "dom", name: "Dominic Hale", role: "Lawyer" },
+      { id: "lena", name: "Lena Voss", role: "Gambling Den" },
+      { id: "ray", name: "Raymond Okonkwo", role: "Business Front" },
+      { id: "eve", name: "Evelyn Shaw", role: "Money Mover" }
+    ];
+
+    const state = {
+      dirty: 0,
+      clean: 800,
+      intensity: 0,
+      freedom: "free", // free | jail
+      day: 1,
+      trust: { sofia: 75, cole: 60, dom: 50, lena: 55, ray: 50, eve: 45 },
+      evidence: [],
+      phase: "start"
+    };
+
+    function money(n) {
+      return n.toLocaleString("en-US");
+    }
+
+    function trustStatus(v) {
+      if (v >= 70) return "useful";
+      if (v >= 40) return "cautious";
+      if (v >= 20) return "unreliable";
+      return "dangerous";
+    }
+
+    function addEvidence(text, weight) {
+      state.evidence.unshift({ day: state.day, text, weight });
+      state.intensity = Math.min(100, state.intensity + weight);
+      render();
+    }
+
+    function changeTrust(id, delta, reason) {
+      const prev = state.trust[id];
+      state.trust[id] = Math.max(0, Math.min(100, prev + delta));
+      if (prev > 0 && state.trust[id] === 0) {
+        addEvidence(`Statement / break from ${CHARACTERS.find(c => c.id === id).name}: ${reason}`, 12);
+      }
+      render();
+    }
+
+    function render() {
+      document.getElementById("dirty").textContent = "$" + money(state.dirty);
+      document.getElementById("clean").textContent = "$" + money(state.clean);
+      document.getElementById("intensity").textContent = state.intensity + "%";
+      document.getElementById("intensityBar").style.width = state.intensity + "%";
+      document.getElementById("freedom").textContent =
+        state.freedom === "free" ? "Free" : "In Jail";
+
+      const chars = document.getElementById("chars");
+      chars.innerHTML = CHARACTERS.map(c => {
+        const t = state.trust[c.id];
+        const st = trustStatus(t);
+        return `<div class="char">
+          <div><strong>${c.name}</strong><br><span style="color:var(--muted);font-size:0.8rem">${c.role}</span></div>
+          <div style="text-align:right">
+            <div>${t}</div>
+            <span class="status ${st}">${st}</span>
+          </div>
+        </div>`;
+      }).join("");
+
+      const journal = document.getElementById("journal");
+      if (state.evidence.length === 0) {
+        journal.innerHTML = "<div>No evidence logged yet.</div>";
+      } else {
+        journal.innerHTML = state.evidence.map(e =>
+          `<div><strong>Day ${e.day}</strong> · +${e.weight}% — ${e.text}</div>`
+        ).join("");
+      }
+    }
+
+    function setStory(text, choices) {
+      document.getElementById("story").textContent = text;
+      const box = document.getElementById("choices");
+      box.innerHTML = "";
+      (choices || []).forEach(ch => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = ch.label;
+        b.disabled = !!ch.disabled;
+        b.onclick = () => ch.action();
+        box.appendChild(b);
+      });
+    }
+
+    function openBail(amount) {
+      document.getElementById("bailAmount").textContent = money(amount);
+      document.getElementById("bailModal").classList.add("open");
+      const payClean = document.getElementById("payClean");
+      const payDirty = document.getElementById("payDirty");
+      payClean.disabled = state.clean < amount;
+      payDirty.disabled = state.dirty < amount;
+
+      payClean.onclick = () => {
+        state.clean -= amount;
+        state.freedom = "free";
+        document.getElementById("bailModal").classList.remove("open");
+        addEvidence("Bail posted with clean funds", 2);
+        afterBail();
+      };
+      payDirty.onclick = () => {
+        state.dirty -= amount;
+        state.freedom = "free";
+        document.getElementById("bailModal").classList.remove("open");
+        addEvidence("Bail posted with unexplained cash — flagged", 8);
+        afterBail();
+      };
+      document.getElementById("refuseBail").onclick = () => {
+        state.freedom = "jail";
+        document.getElementById("bailModal").classList.remove("open");
+        setStory(
+          "You refuse to post bail.\n\nYou are processed and moved into holding. Days will pass. Trust will decay. The case file keeps growing without you.",
+          [{ label: "Continue (prototype ends jail path here)", action: () => {
+            setStory("Jail path placeholder. In the full design this leads to prison systems, trust decay, and possible escape planning.", []);
+          }}]
+        );
+        render();
+      };
+    }
+
+    function afterBail() {
+      setStory(
+        "You walk out. Released for now.\n\nThe street feels the same. The case file does not. Kessler still has everything that put you in cuffs.",
+        [
+          { label: "Lie low for a few days", action: () => {
+            state.day += 3;
+            state.intensity = Math.max(0, state.intensity - 3);
+            setStory("You stay quiet. Intensity eases slightly. People still remember.", mainChoices());
+            render();
+          }},
+          { label: "Call Cole for work", action: jobWithCole }
+        ]
+      );
+      render();
+    }
+
+    function mainChoices() {
+      return [
+        { label: "Take a small street job with Cole", action: jobWithCole },
+        { label: "Try to move some dirty money through Lena’s den", action: useDen },
+        { label: "Spend time with Sofia (honest or not)", action: sofiaScene },
+        { label: "Check in with Dom (lawyer)", action: talkDom }
+      ];
+    }
+
+    function jobWithCole() {
+      if (state.trust.cole < 20) {
+        setStory("Cole doesn’t answer. When he finally texts back it’s one line: Don’t call me.", mainChoices());
+        return;
+      }
+      state.day += 1;
+      state.dirty += 2500;
+      changeTrust("cole", -4, "Felt used on the last job");
+      addEvidence("Associate activity pattern — possible street-level offense", 5);
+      setStory(
+        "The job is messy but quick. You walk away with dirty cash.\n\nCole is quieter than usual. He took a cut and didn’t look you in the eye.",
+        mainChoices()
+      );
+      maybeArrest();
+    }
+
+    function useDen() {
+      if (state.trust.lena < 20) {
+        setStory("Lena’s people turn you away at the door. You’re not welcome.", mainChoices());
+        return;
+      }
+      if (state.dirty < 1000) {
+        setStory("You don’t have enough dirty cash on you to make the den worth it.", mainChoices());
+        return;
+      }
+      const moved = Math.min(state.dirty, 4000);
+      const loss = Math.floor(moved * 0.3);
+      state.dirty -= moved;
+      state.clean += (moved - loss);
+      state.day += 1;
+      changeTrust("lena", -3, "Too much volume, too fast");
+      addEvidence("Cash pattern consistent with underground gaming activity", 6);
+      setStory(
+        `You push $${money(moved)} through the den.\nYou walk out with $${money(moved - loss)} that looks cleaner — and a bigger footprint.`,
+        mainChoices()
+      );
+      maybeArrest();
+    }
+
+    function sofiaScene() {
+      setStory(
+        "Sofia is at the table. She doesn’t ask where the money comes from. She just watches you.\n\nYou can feel the distance.",
+        [
+          { label: "Tell her a version of the truth", action: () => {
+            changeTrust("sofia", -8, "Admitted involvement; she is afraid and angry");
+            addEvidence("Domestic statement — timeline of absences and stress", 7);
+            setStory("You tell her enough. She doesn’t scream. She just says she needs time. Trust drops hard.", mainChoices());
+          }},
+          { label: "Lie and say everything is fine", action: () => {
+            changeTrust("sofia", -5, "Caught in another lie");
+            setStory("You lie. She nods like she expected it. The silence afterward is worse than an argument.", mainChoices());
+          }},
+          { label: "Stay quiet and leave money on the table", action: () => {
+            if (state.clean >= 500) state.clean -= 500;
+            else if (state.dirty >= 500) state.dirty -= 500;
+            changeTrust("sofia", +2, null);
+            setStory("You leave cash and don’t explain. She doesn’t say thank you.", mainChoices());
+            render();
+          }}
+        ]
+      );
+    }
+
+    function talkDom() {
+      if (state.trust.dom < 20) {
+        setStory("Dom’s office sends a short email: he is no longer available to represent you.", mainChoices());
+        return;
+      }
+      setStory(
+        "Dom listens with the expression of a man already calculating fees.\n\n“You’re visible,” he says. “Visible is expensive.”",
+        [
+          { label: "Pay him a retainer ($1,200 clean)", action: () => {
+            if (state.clean < 1200) {
+              setStory("You don’t have enough clean money for the retainer he wants.", mainChoices());
+              return;
+            }
+            state.clean -= 1200;
+            changeTrust("dom", +6, null);
+            state.intensity = Math.max(0, state.intensity - 4);
+            setStory("Dom takes the money. He says he’ll make some calls. Intensity eases a little.", mainChoices());
+            render();
+          }},
+          { label: "Ask what Kessler has", action: () => {
+            setStory(
+              `Dom skims a note.\n\n“Case intensity is roughly ${state.intensity}%. Enough pieces to be annoying. Not enough for the ending Kessler wants — yet.”`,
+              mainChoices()
+            );
+          }},
+          { label: "Leave", action: () => setStory("You leave the office. The city feels smaller.", mainChoices()) }
+        ]
+      );
+    }
+
+    function maybeArrest() {
+      if (state.intensity >= 55 && state.freedom === "free" && Math.random() < 0.45) {
+        const bail = 15000 + state.intensity * 400;
+        setStory("Blue lights. Commands. Cuffs.\n\nYou are under arrest.", []);
+        setTimeout(() => openBail(bail), 600);
+      } else {
+        render();
+      }
+    }
+
+    // Tabs
+    document.querySelectorAll(".tabs button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const tab = btn.dataset.tab;
+        document.getElementById("storyPanel").style.display = tab === "story" ? "block" : "none";
+        document.getElementById("journalPanel").style.display = tab === "journal" ? "block" : "none";
+      });
+    });
+
+    // Start
+    function start() {
+      setStory(
+        "You were never supposed to be here.\n\nA favor. A ride. Being in the wrong doorway when the bag changed hands. One moment that refused to stay small.\n\nNow there is dirty money in your life, and people who know your name for the wrong reasons. Detective Kessler has already started a file. He doesn’t need to rush.\n\nThis is the flip.",
+        [
+          { label: "Take the first envelope (dirty cash)", action: () => {
+            state.dirty += 1800;
+            changeTrust("cole", +5, null);
+            addEvidence("Initial association with known street actor", 4);
+            setStory(
+              "Cole slides the envelope across. It is heavier than it looks.\n\n“Don’t spend it like a tourist,” he says.",
+              mainChoices()
+            );
+            render();
+          }},
+          { label: "Try to walk away clean", action: () => {
+            changeTrust("cole", -15, "Tried to walk; considered unreliable");
+            addEvidence("Subject attempted to disengage after initial contact", 3);
+            setStory(
+              "You try to leave it alone. Cole doesn’t threaten you. He just looks disappointed — which somehow feels worse.\n\nThe city doesn’t care about your intentions. The file already has a first line.",
+              mainChoices()
+            );
+          }}
+        ]
+      );
+      render();
+    }
+
+    start();
+  </script>
+</body>
+</html>
